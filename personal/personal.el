@@ -72,7 +72,12 @@
             elpy
             py-autopep8
             git-gutter
-            )
+            clang-format
+            better-defaults
+            ein ;; add the ein package (Emacs ipython notebook)
+            elpy
+            material-theme
+            py-autopep8 )
   (when (not package-archive-contents)
     (package-refresh-contents)))
 
@@ -1044,21 +1049,6 @@ With negative prefix, apply to -N lines above."
 ;; (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 ;; Python stuff
-
-(defvar my-packages
-  '(better-defaults
-    ein ;; add the ein package (Emacs ipython notebook)
-    elpy
-    flycheck
-    material-theme
-    py-autopep8))
-
-(mapc #'(lambda (package)
-          (unless (package-installed-p package)
-            (package-install package)))
-      my-packages)
-
-
 (elpy-enable)
 
 ;; Make pdflatex work withcv_hhanff_en.tex
@@ -1083,5 +1073,18 @@ With negative prefix, apply to -N lines above."
 ;; To convert non printable text characters to german Umlaute open
 ;; my_convert_to_utf8.el mark everything and do M-x eval-region.
 ;; Next open the affected file and call the lisp function
+
+(winner-mode)
+(global-set-key [C-f7] 'winner-undo)
+(global-set-key [C-f9] 'winner-redo)
+
+(require 'clang-format)
+(global-set-key (kbd "C-c i") 'clang-format-region)
+(global-set-key (kbd "C-c u") 'clang-format-buffer)
+
+(setq clang-format-style-option "google")
+
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
 
 ;; Personal.el ends here
