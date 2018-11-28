@@ -48,17 +48,16 @@
             smex
             auto-complete
             dtrt-indent
-            google-c-style
+            ;; google-c-style
             highline
             indent-guide
             highlight-indentation
             iedit
-            flymake-google-cpplint
+            ;;flymake-google-cpplint
             yasnippet
-            flycheck
+            ;; flycheck
             ;;flycheck-google-cpplint
             auto-complete-c-headers
-            flymake-cursor
             dash
             which-key
             gist
@@ -72,12 +71,14 @@
             elpy
             py-autopep8
             git-gutter
-            clang-format
+            ;; clang-format
             better-defaults
             ein ;; add the ein package (Emacs ipython notebook)
             elpy
             material-theme
-            py-autopep8 )
+            py-autopep8
+	    cl-generic
+	    )
   (when (not package-archive-contents)
     (package-refresh-contents)))
 
@@ -96,46 +97,13 @@
 ;;Fix iedit bug in Mac
 (define-key global-map (kbd "C-c ;") 'iedit-mode)
 
-                                        ; start flymake-google-cpplint-load
-                                        ; let's define a function for flymake initialization
-(defun my:flymake-google-init ()
-  (require 'flymake-google-cpplint)
-  ;; To make this work do
-  ;; > sudo apt-get install python-pip; sudo pip install cpplint;
-  ;; > cd /usr/local/lib/python2.7/dist-packages;  sudo chmod -R 777;
-  (custom-set-variables
-   '(flymake-google-cpplint-linelength "120")
-   '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
-  (flymake-google-cpplint-load))
-(add-hook 'c-mode-hook 'my:flymake-google-init)
-(add-hook 'c++-mode-hook 'my:flymake-google-init)
 
-;;(eval-after-load 'flycheck
-;;    '(progn
-;;       (require 'flycheck-google-cpplint)
-;;       ;; Add Google C++ Style checker.
-;;       ;; In default, syntax checked by Clang and Cppcheck.
-;;       (flycheck-add-next-checker 'c/c++-cppcheck
-;;                                  '(info . c/c++-googlelint))))
-
-                                        ; turn on Semantic
-(semantic-mode 1)
-                                        ; let's define a function which adds semantic as a suggestion backend to auto complete
-                                        ; and hook this function to c-mode-common-hook
-(defun my:add-semantic-to-autocomplete()
-  (add-to-list 'ac-sources 'ac-source-semantic)
-  )
-(global-semantic-idle-scheduler-mode 1)
-
-(add-hook 'c-mode-common-hook 'my:add-semantic-to-autocomplete)
                                         ; turn on ede mode
 (global-ede-mode 1)
                                         ; create a project for our program.
 ;; (ede-cpp-root-project "my project" :file "~/demos/my_program/src/main.cpp"
 ;; 		      :include-path '("/../my_inc"))
                                         ; you can use system-include-path for setting up the system header file locations.
-                                        ; turn on automatic reparsing of open buffers in semantic
-(global-semantic-idle-scheduler-mode 1)
 
 (setq yas/root-directory "~/.emacs.d/snippets")
 ;;(yas/load-directory yas/root-directory)
@@ -202,9 +170,9 @@
 ;; (define-key global-map (kbd "C-c ;") 'iedit-mode)
 
 ;; Start Google C-Style with emacs
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+;; (require 'google-c-style)
+;; (add-hook 'c-mode-common-hook 'google-set-c-style)
+;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 ;;------------------------------------------------------------------------------
 ;;    General settings (optional)
@@ -924,9 +892,8 @@ With prefix P, create local abbrev. Otherwise it will be global."
 (add-hook 'dired-after-readin-hook #'highline-mode-on)
 ;; Turn on local highlighting for list-buffers (C-x C-b)
 (defadvice list-buffers (after highlight-line activate)
-  (save-excursion
-    (set-buffer "*Buffer List*")
-    (highline-mode-on)))
+  (with-current-buffer"*Buffer List*")
+    (highline-mode-on))
 
 ;;Emacs Dired Human-Readable File Sizes
 (setq dired-listing-switches "-alh")
@@ -1054,11 +1021,6 @@ With negative prefix, apply to -N lines above."
 ;; Make pdflatex work withcv_hhanff_en.tex
 (setq LaTeX-command-style '(("" "%(PDF)%(latex) -shell-escape %S%(PDFout)")))
 
-;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
 ;; enable autopep8 formatting on save
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
@@ -1078,13 +1040,11 @@ With negative prefix, apply to -N lines above."
 (global-set-key [C-f7] 'winner-undo)
 (global-set-key [C-f9] 'winner-redo)
 
-(require 'clang-format)
-(global-set-key (kbd "C-c i") 'clang-format-region)
-(global-set-key (kbd "C-c u") 'clang-format-buffer)
+;; (require 'clang-format)
+;; (global-set-key (kbd "C-c i") 'clang-format-region)
+;; (global-set-key (kbd "C-c u") 'clang-format-buffer)
 
-(setq clang-format-style-option "google")
+;; (setq clang-format-style-option "google")
 
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
 
 ;; Personal.el ends here
