@@ -36,6 +36,7 @@
             ;;starter-kit-bindings
             ;;marmalade
             use-package
+            dumb-jump
             counsel
             bind-key
             rainbow-delimiters
@@ -1045,6 +1046,40 @@ With negative prefix, apply to -N lines above."
 ;; (global-set-key (kbd "C-c u") 'clang-format-buffer)
 
 ;; (setq clang-format-style-option "google")
+
+;; ;; Call visit-tags-table to set a TAGS file
+;; ;; Use M-. and M-, to push and pop to a definition respectively
+;; (let ((my-tags-file (locate-dominating-file default-directory "TAGS")))
+;;   (when my-tags-file
+;;     (message "Loading tags file: %s" my-tags-file)
+;;     (visit-tags-table my-tags-file)))
+
+
+(disable-theme 'zenburn)
+
+;; Jump to code definitions
+(dumb-jump-mode)
+(setq dumb-jump-force-searcher 'ag)
+
+;; cmake-mode
+(use-package cmake-mode
+  :ensure t
+  :mode ("CMakeLists.txt" ".cmake")
+  :hook (cmake-mode . (lambda ()
+                        (add-to-list 'company-backends 'company-cmake)))
+  :config
+  (use-package cmake-font-lock
+    :ensure t
+    :defer t
+    :commands (cmake-font-lock-activate)
+    :hook (cmake-mode . (lambda ()
+                          (cmake-font-lock-activate)
+                          (font-lock-add-keywords
+                           nil '(("\\<\\(FIXME\\|TODO\\|BUG\\|DONE\\)"
+                                  1 font-lock-warning-face t)))
+                          ))
+    )
+  )
 
 
 ;; Personal.el ends here
