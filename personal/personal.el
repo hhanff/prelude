@@ -21,11 +21,11 @@
 ;; Package stuff
 ;;------------------------------------------------------------------------------
 (require 'package)
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("SC"  . "http://joseito.republika.pl/sunrise-commander/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+;; (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+;;                          ("gnu" . "http://elpa.gnu.org/packages/")
+;;                          ("melpa" . "http://melpa.org/packages/")
+;;                          ("SC"  . "http://joseito.republika.pl/sunrise-commander/")))
+;;                          ;; ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (package-initialize)
 
@@ -68,7 +68,6 @@
             ;;color-theme-solarized
             keyfreq
             theme-changer
-            dumb-jump
             elpy
             py-autopep8
             git-gutter
@@ -247,8 +246,8 @@
 ;; C-u M-q: Wie oben, nur Blockmode
 ;; C-o: harte neue Zeile die bestehen bleibt
 (setq-default fill-column 80)
-(add-hook 'text-mode-hook'(lambda () (auto-fill-mode 1)))
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'text-mode-hook'(lambda () (auto-fill-mode 1)))
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Fill and unfill paragraphs with a single key
 (defun endless/fill-or-unfill ()
