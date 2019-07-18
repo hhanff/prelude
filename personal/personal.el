@@ -726,6 +726,10 @@ With prefix P, create local abbrev. Otherwise it will be global."
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("jsTestDriver\\.conf$" . yaml-mode))
 
+;; Bash
+(add-to-list 'auto-mode-alist '("\\.profile_common" . sh-mode))
+(add-to-list 'auto-mode-alist '(".profile_common" . sh-mode))
+
 ;; Emacs lisp
 (add-to-list 'auto-mode-alist '("Carton$" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("Cask$" . emacs-lisp-mode))
@@ -1057,29 +1061,29 @@ With negative prefix, apply to -N lines above."
 
 (disable-theme 'zenburn)
 
-;; Jump to code definitions
-(dumb-jump-mode)
-(setq dumb-jump-force-searcher 'ag)
-
-;; cmake-mode
-(use-package cmake-mode
-  :ensure t
-  :mode ("CMakeLists.txt" ".cmake")
-  :hook (cmake-mode . (lambda ()
-                        (add-to-list 'company-backends 'company-cmake)))
-  :config
-  (use-package cmake-font-lock
-    :ensure t
-    :defer t
-    :commands (cmake-font-lock-activate)
-    :hook (cmake-mode . (lambda ()
-                          (cmake-font-lock-activate)
-                          (font-lock-add-keywords
-                           nil '(("\\<\\(FIXME\\|TODO\\|BUG\\|DONE\\)"
-                                  1 font-lock-warning-face t)))
-                          ))
-    )
-  )
-
-
+-;; Jump to code definitions
+-(dumb-jump-mode)
+-(setq dumb-jump-force-searcher 'ag)
+-
+-;; cmake-mode
+-(use-package cmake-mode
+   -  :ensure t
+   -  :mode ("CMakeLists.txt" ".cmake")
+   -  :hook (cmake-mode . (lambda ()
+                            -                        (add-to-list 'company-backends 'company-cmake)))
+   -  :config
+   -  (use-package cmake-font-lock
+        -    :ensure t
+        -    :defer t
+        -    :commands (cmake-font-lock-activate)
+        -    :hook (cmake-mode . (lambda ()
+                                   -                          (cmake-font-lock-activate)
+                                   -                          (font-lock-add-keywords
+                                                               -                           nil '(("\\<\\(FIXME\\|TODO\\|BUG\\|DONE\\)"
+                                                                                                  -                                  1 font-lock-warning-face t)))
+                                   -                          ))
+        -    )
+   -  )
+-
+-
 ;; Personal.el ends here

